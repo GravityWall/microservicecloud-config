@@ -1,65 +1,29 @@
-
 spring:
   profiles:
-    active: product
+    active: dev
 debug: true
 ---
 server:
-  port: 8082
+  port: 8201
 spring:
-  profiles: product
+  profiles: dev
   application:
-    name: microservicloud-dept
-  datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/springcloud02?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=false
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    initialization-mode: always
-
-    initialSize: 5
-    minIdle: 5
-    maxActive: 20
-    maxWait: 60000
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: SELECT 1 FROM DUAL
-    testWhileIdle: true
-    testOnReturn: false
-    testOnBorrow: false
-    poolPreparedStatements: true
-    maxPoolPreparedStatementPerConnectionSize: 20
-    filters: stat,wall
-  servlet:
-    multipart:
-      max-request-size: 2MB
-logging:
-  level:
-    com: debug
-  path: /springboot/log
-
-mybatis:
-  configuration:
-    useGeneratedKeys: true
-    mapUnderscoreToCamelCase: true
-
-pagehelper:
-  helper-dialect: mysql
-  reasonable: true
-  support-methods-arguments: true
-  params: count=countSql
+    name: microservicloud-config-client
 
 eureka:
   client:
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
-  instance:
-    instance-id: microservicecloud-dept8082
-    prefer-ip-address: true
 
-info:
-  app.name: com.springcloud2019
-  createBy: wyl
-  build.artifactid: $project.artifactId$
-  build.version: $project.version$
+---
+server:
+  port: 8202
+spring:
+  profiles: test
+  application:
+    name: microservicloud-config-client
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
